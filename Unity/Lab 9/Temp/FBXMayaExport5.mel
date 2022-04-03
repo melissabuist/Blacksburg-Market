@@ -1,0 +1,22 @@
+print "Starting maya loading and fbx conversion \n";
+	
+if (`file -q -exists "C:/Users/mlbui/OneDrive/DOCUME~1/Unity/Lab 9/Lab 9/Assets/wood pillar.mb"`)
+{		
+	file -o "C:/Users/mlbui/OneDrive/DOCUME~1/Unity/Lab 9/Lab 9/Assets/wood pillar.mb";
+	FBXExportEmbeddedTextures -v false;
+	// FBXExportHardEdges -v true;
+	FBXExportApplyConstantKeyReducer -v false;
+	FBXExportShowUI -v false;
+
+	print "Before fbx export\n";
+	FBXExport -f "C:/Users/mlbui/OneDrive/DOCUME~1/Unity/Lab 9/Lab 9/Temp/ExportedFBXFile.fbx";
+	print "after fbx export\n";
+}
+else
+	print "Could not open Maya file.";
+
+sysFile -delete "C:/Users/mlbui/OneDrive/DOCUME~1/Unity/Lab 9/Lab 9/Temp/CommandPipe";
+
+$donepipeKill = `fopen "C:/Users/mlbui/OneDrive/DOCUME~1/Unity/Lab 9/Lab 9/Temp/SyncPipeKill" "w"`;
+fwrite $donepipeKill "Done";
+fclose $donepipeKill;
